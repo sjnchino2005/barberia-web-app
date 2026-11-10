@@ -9,5 +9,6 @@ namespace BarberiaWebApp.API.Data
 
         public DbSet<Cliente> Clientes => Set<Cliente>();
         public DbSet<HistorialCorte> HistorialCortes => Set<HistorialCorte>();
+        public DbSet<Turno> Turnos => Set<Turno>();
     }
 }
