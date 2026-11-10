@@ -10,5 +10,16 @@ namespace BarberiaWebApp.API.Controllers
         {
             return View();
         }
+        [HttpGet("/turnero")]
+        public IActionResult Turnero()
+        {
+            return View();
+        }
+
+        [HttpGet("/barbero")]
+        public IActionResult Barbero()
+        {
+            return View();
+        }
     }
 }
