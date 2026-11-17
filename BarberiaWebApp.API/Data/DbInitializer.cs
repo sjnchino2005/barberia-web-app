@@ -8,6 +8,15 @@ namespace BarberiaWebApp.API.Data
         {
             context.Database.EnsureCreated();
 
+            if (!context.Usuarios.Any())
+            {
+                context.Usuarios.AddRange(
+                    new Usuario { Username = "admin", Password = "123", Rol = "Admin", NombreCompleto = "Administrador Principal" },
+                    new Usuario { Username = "barbero1", Password = "123", Rol = "Barbero", NombreCompleto = "Mateo Barbero" },
+                    new Usuario { Username = "cliente1", Password = "123", Rol = "Cliente", NombreCompleto = "Gabriel Hurtado" }
+                );
+            }
+
             if (!context.Clientes.Any())
             {
                 var cliente = new Cliente

@@ -116,6 +116,35 @@ namespace BarberiaWebApp.API.Migrations
                     b.ToTable("Turnos");
                 });
 
+            modelBuilder.Entity("BarberiaWebApp.API.Models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("NombreCompleto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
+                });
+
             modelBuilder.Entity("BarberiaWebApp.API.Models.HistorialCorte", b =>
                 {
                     b.HasOne("BarberiaWebApp.API.Models.Cliente", "Cliente")
