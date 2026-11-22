@@ -59,6 +59,15 @@ namespace BarberiaWebApp.API.Data
                     new Servicio { Nombre = "Combo Completo (Corte + Barba)", PrecioBs = 70, DuracionMinutos = 60 }
                 );
             }
+
+            if (!context.Productos.Any())
+            {
+                context.Productos.AddRange(
+                    new Producto { Nombre = "Cera Mate Profesional 150g", Categoria = "Venta", PrecioVentaBs = 65, StockActual = 12, StockMinimo = 5 },
+                    new Producto { Nombre = "Aceite Hidratante de Barba", Categoria = "Venta", PrecioVentaBs = 55, StockActual = 3, StockMinimo = 5 }, // Alerta stock bajo
+                    new Producto { Nombre = "Cuchillas Gillette (Caja x100)", Categoria = "Insumo", PrecioVentaBs = 0, StockActual = 2, StockMinimo = 4 } // Alerta stock bajo
+                );
+            }
             context.SaveChanges();
 
         }

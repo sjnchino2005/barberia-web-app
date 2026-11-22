@@ -59,5 +59,64 @@ namespace BarberiaWebApp.API.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+        // --- INVENTARIO Y STOCK (SCRUM-23) ---
+        [HttpGet("productos")]
+        public async Task<IActionResult> GetProductos() => Ok(await _context.Productos.ToListAsync());
+
+        [HttpPost("productos")]
+        public async Task<IActionResult> CrearProducto([FromBody] Producto producto)
+        {
+            _context.Productos.Add(producto);
+            await _context.SaveChangesAsync();
+            return Ok(producto);
+        }
+
+        [HttpPut("productos/{id}/stock")]
+        public async Task<IActionResult> ActualizarStock(int id, [FromBody] int cantidadDelta)
+        {
+            var prod = await _context.Productos.FindAsync(id);
+            if (prod == null) return NotFound();
+
+            prod.StockActual = Math.Max(0, prod.StockActual + cantidadDelta);
+            await _context.SaveChangesAsync();
+            return Ok(prod);
+        }
+
+        // --- REPORTES MENSUALES Y CAJA (SCRUM-24) ---
+        [HttpGet("reporte-mensual")]
+        public async Task<IActionResult> GetReporteMensual()
+        {
+            var inicioMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+            var cortesMes = await _context.HistorialCortes
+                .Where(c => c.FechaServicio >= inicioMes)
+                .ToListAsync();
+
+            var totalIngresosBs = cortesMes.Sum(c => c.PrecioBs);
+            var totalServicios = cortesMes.Count;
+            var ticketPromedioBs = totalServicios > 0 ? Math.Round(totalIngresosBs / totalServicios, 2) : 0;
+            var productosBajoStock = await _context.Productos.CountAsync(p => p.StockActual <= p.StockMinimo);
+
+            var desgloseServicios = cortesMes
+                .GroupBy(c => c.TipoCorte)
+                .Select(g => new
+                {
+                    Servicio = g.Key,
+                    Cantidad = g.Count(),
+                    SubtotalBs = g.Sum(x => x.PrecioBs)
+                })
+                .OrderByDescending(x => x.SubtotalBs)
+                .ToList();
+
+            return Ok(new
+            {
+                mes = DateTime.Now.ToString("MMMM yyyy"),
+                totalIngresosBs,
+                totalServicios,
+                ticketPromedioBs,
+                productosBajoStock,
+                desgloseServicios
+            });
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace BarberiaWebApp.API.Data
         public DbSet<Usuario> Usuarios => Set<Usuario>();
         public DbSet<Barbero> Barberos => Set<Barbero>();
         public DbSet<Servicio> Servicios => Set<Servicio>();
+        public DbSet<Producto> Productos => Set<Producto>();
     }
 }

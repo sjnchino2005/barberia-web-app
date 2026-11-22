@@ -111,6 +111,36 @@ namespace BarberiaWebApp.API.Migrations
                     b.ToTable("HistorialCortes");
                 });
 
+            modelBuilder.Entity("BarberiaWebApp.API.Models.Producto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrecioVentaBs")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("StockActual")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockMinimo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Productos");
+                });
+
             modelBuilder.Entity("BarberiaWebApp.API.Models.Servicio", b =>
                 {
                     b.Property<int>("Id")
