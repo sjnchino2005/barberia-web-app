@@ -22,6 +22,33 @@ namespace BarberiaWebApp.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BarberiaWebApp.API.Models.Barbero", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Especialidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreCompleto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PorcentajeComision")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Barberos");
+                });
+
             modelBuilder.Entity("BarberiaWebApp.API.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
@@ -82,6 +109,29 @@ namespace BarberiaWebApp.API.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("HistorialCortes");
+                });
+
+            modelBuilder.Entity("BarberiaWebApp.API.Models.Servicio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DuracionMinutos")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrecioBs")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicios");
                 });
 
             modelBuilder.Entity("BarberiaWebApp.API.Models.Turno", b =>

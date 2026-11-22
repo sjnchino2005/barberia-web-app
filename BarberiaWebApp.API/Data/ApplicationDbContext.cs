@@ -11,5 +11,7 @@ namespace BarberiaWebApp.API.Data
         public DbSet<HistorialCorte> HistorialCortes => Set<HistorialCorte>();
         public DbSet<Turno> Turnos => Set<Turno>();
         public DbSet<Usuario> Usuarios => Set<Usuario>();
+        public DbSet<Barbero> Barberos => Set<Barbero>();
+        public DbSet<Servicio> Servicios => Set<Servicio>();
     }
 }

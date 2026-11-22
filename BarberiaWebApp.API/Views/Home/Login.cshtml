@@ -101,7 +101,9 @@
                 localStorage.setItem('usuarioSesion', JSON.stringify(data));
 
                 // Redirección inteligente según el Rol
-                if (data.rol === 'Admin' || data.rol === 'Barbero') {
+                 if (data.rol === 'Admin') {
+                     window.location.href = '/admin';
+                } else if (data.rol === 'Barbero') {
                     window.location.href = '/barbero';
                 } else {
                     window.location.href = '/cliente/perfil';

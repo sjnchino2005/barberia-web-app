@@ -42,7 +42,23 @@ namespace BarberiaWebApp.API.Data
                     new Turno { NombreCliente = "Sebastian Rivas", BarberoAsignado = "Mateo", Servicio = "Combo Completo", Estado = "En espera" }
                 );
             }
+            if (!context.Barberos.Any())
+            {
+                context.Barberos.AddRange(
+                    new Barbero { NombreCompleto = "Mateo Barbero", Especialidad = "Fades y Diseño", PorcentajeComision = 50, Activo = true },
+                    new Barbero { NombreCompleto = "Luis Mendoza", Especialidad = "Barba y Corte Clásico", PorcentajeComision = 45, Activo = true }
+                );
+            }
 
+            if (!context.Servicios.Any())
+            {
+                context.Servicios.AddRange(
+                    new Servicio { Nombre = "Corte Fade + Perfilado", PrecioBs = 50, DuracionMinutos = 40 },
+                    new Servicio { Nombre = "Corte Clásico", PrecioBs = 40, DuracionMinutos = 30 },
+                    new Servicio { Nombre = "Arreglo de Barba VIP", PrecioBs = 30, DuracionMinutos = 25 },
+                    new Servicio { Nombre = "Combo Completo (Corte + Barba)", PrecioBs = 70, DuracionMinutos = 60 }
+                );
+            }
             context.SaveChanges();
 
         }

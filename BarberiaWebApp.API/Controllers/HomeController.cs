@@ -27,5 +27,11 @@ namespace BarberiaWebApp.API.Controllers
         {
             return View();
         }
+
+        [HttpGet("/admin")]
+        public IActionResult Admin()
+        {
+            return View();
+        }
     }
 }
